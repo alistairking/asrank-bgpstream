@@ -25,6 +25,11 @@ KHASH_INIT(asr_hash, asr_key_t, uint8_t, 1, asr_hash, asr_equal);
 
 int main(int argc, char **argv)
 {
+  if (argc < 3) {
+    fprintf(stderr, "Usage: asrank begin end [collector]\n");
+    exit(-1);
+  }
+
   int start = atoi(argv[1]);
   int end = atoi(argv[2]);
   char *collector = NULL;
@@ -85,7 +90,7 @@ int main(int argc, char **argv)
         bgpstream_as_path_destroy(findme.path);
       }
 
-      if ((cnt % 100000) == 0) {
+      if ((cnt % 1000000) == 0) {
         fprintf(stderr, "Processed %d elems\n", cnt);
       }
       cnt++;
